@@ -1,0 +1,17 @@
+
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+{% load static %}
+<div class="footer_page_title">АКЦИИ</div>
+<div class="cell_block">
+	{% for akatsuki in akatsuki%}
+		<div class="new"><img src="{{ akatsuki.image.url}}">
+    <div class="new_name">{{ akatsuki.name }}</div>
+    <div class="new_text">{{ akatsuki.description }}</div>
+	</div>
+</div>
+{% endfor %}
+	
+
+{% endblock %}

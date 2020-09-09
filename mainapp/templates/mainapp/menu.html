@@ -1,0 +1,862 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+{% load static %}
+ 
+<div class="poloska_id">
+<div aria-label="gallery">
+<ul>
+
+<li><a href="#pizza" class="button_id">пицца</a></li>
+<li><a href="#rolls" class="button_id">роллы</a></li>
+<li><a href="#snack" class="button_id">закуски</a></li>
+<li><a href="#beer_snack" class="button_id">закуски к пиву</a></li>
+<li><a href="#salad" class="button_id">салаты</a></li>
+<li><a href="#pasta" class="button_id">паста</a></li>
+<li><a href="#hot_dishes" class="button_id">горячие блюда</a></li>
+<li><a href="#ramen" class="button_id">супы</a></li>
+<li><a href="#itachi" class="button_id">гриль меню</a></li>
+<li><a href="#garnish" class="button_id">гарниры</a></li>
+<li><a href="#dessert" class="button_id">десерты</a></li>
+<li><a href="#sause" class="button_id">соусы</a></li>
+
+
+<li><a href="#cocktail" class="button_id">напитки</a></li>
+</ul>
+</div>
+</div>
+
+<div class="slideshow-container">
+    
+        {% for slider in slider %}
+        <div class="mySlides fade">
+        <img src="{{ slider.image.url }}" width="100%" class="slide_image">
+        </div>
+        {% endfor %}
+        
+
+        <div class="slideflip_left">
+        	<a class="prev" onclick="plusSlides(-1)"><div class="strelka"><img src="{% static 'mainapp/images/left-arrov.png'%}" width="20%">
+        </div></a></div>
+        <div class="slideflip_right">
+          <a class="next" onclick="plusSlides(1)"><div class="strelka"><img src="{% static 'mainapp/images/right_arrov.png'%}" width="90%">
+          </div></a></div>
+        
+        <div class="slideNav">
+        <span class="dot2" onclick="currentSlide(1)"></span>
+        <span class="dot2" onclick="currentSlide(2)"></span>
+        <span class="dot2" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+
+<div id="call-call" class="zetsu"><img src="{% static 'mainapp/images/phone.png'%}"></div>
+  <div id="call" class="call">
+    <div class="call-content">
+      <span class="close-call">×</span>
+      <div class="reserv_text">Забронировать столик</div>
+      <form action = '/reservation' class="fake2" method="post">
+      <div class="reserved">
+        
+          {% csrf_token %}
+      <div class="desctop_text">Телефон:</div>
+      <input type="text" name="phone" class="desctop_input phone rfield">
+      </div>
+      <div class="reserved">
+      <button type="submit" class="reserv_button_desctop">заказать звонок</button>
+    
+      
+      </form>
+       <a href="tel:+79068399390" class="reserv_button_mobile">позвонить</a>
+      </div>
+    </div> 
+  </div>
+    
+<div id="business_lunch" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">бизнес ланч</div></div>
+ <div class="cell_block">
+ {% for i in business_lunch %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+
+<div id="pizza" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">пицца</div></div>
+ <div class="cell_block">
+ {% for i in pizza %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"><div id="my_modal" class="modal">
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+        <div class="wimdow_content">{{ i.description }} </div>
+        <div class="cost_window">{{ i.price }}p</div>
+        <div class="weight_window">{{ i.weight }}г</div>
+         <form action="{% url "mainapp:cart_add2" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div>
+         </div>
+         <div class="second_modal">
+            <div class="second_modal_title">Добавить</div>
+            <div class="second_modal_radio">
+        <div class="element-wrapper">
+        <input type="checkbox" class="radio" name="radio" value = '1' id="radio1" />
+        <label class="second_modal_text" for="radio1">Перчик халапенью   </label>
+        <div class="second_modal_text second_modal_text_2">+ 50 р</div>
+        </div>
+        <div class="element-wrapper">
+        <input type="checkbox" class="radio" name="radio" value = '2' id="radio2" />
+        <label class="second_modal_text" for="radio2">Бекон   </label>
+        <div class="second_modal_text second_modal_text_2">+ 100 р</div>
+        </div>
+        <div class="element-wrapper">
+        <input type="checkbox" class="radio" name="radio" value = '3' id="radio3" />
+        <label class="second_modal_text" for="radio3">Жаренные грибы  </label>
+        <div class="second_modal_text second_modal_text_2">+ 70 р</div>
+        </div>
+        <div class="element-wrapper">
+        <input type="checkbox" class="radio" name="radio" value = '3' id="radio3" />
+        <label class="second_modal_text" for="radio3">Сыр Мацарелла  </label>
+        <div class="second_modal_text second_modal_text_2">+ 70 р</div>
+        </div>
+        </div>
+        
+      </form>
+    </div>
+  </div></div>
+       
+    {% endfor %}
+    </div>
+
+<div id="rolls" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">роллы</div></div>
+<div class="cell_block">
+    {% for i in rolls %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+    <div id="snack" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">закуски</div></div>
+<div class="cell_block">
+  {% for i in snack %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+    {% endfor %}
+    </div>
+
+<div id="beer_snack" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">пивные закуски</div></div>
+<div class="cell_block">
+  {% for i in beer_snack %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+    <div id="salad" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">салаты</div></div>
+<div class="cell_block">
+  {% for i in salad %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+    <div id="pasta" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">паста</div></div>
+<div class="cell_block">
+  {% for i in pasta %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info"> 
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+<div id="hot_dishes" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">горячие блюда</div></div>
+<div class="cell_block">
+  {% for i in hot_dishes %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+    <div id="ramen" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">супы</div></div>
+<div class="cell_block">
+{% for i in ramen %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info"> 
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+<div id="itachi" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">гриль-меню</div></div>
+<div class="cell_block">
+  {% for i in itachi %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+
+<div id="garnish" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">гарниры</div></div>
+<div class="cell_block">
+  {% for i in garnish %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+
+
+    <div id="dessert" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">десерты</div></div>
+<div class="cell_block">
+  {% for i in dessert %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info"> 
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+    <div id="sause" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">соусы</div></div>
+<div class="cell_block">
+  {% for i in sause %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+
+
+
+
+
+
+
+
+   
+ 
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="cocktail" class="id_invis"></div>
+<div class="matreshka"><div class="block_title">коктейли</div></div>
+<div class="cell_block">
+	{% for i in cocktail %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info"> 
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+<div id="milk"></div>
+<div class="matreshka"><div class="block_title">молочные коктейли,смузи и ласси</div></div>
+<div class="cell_block">
+	{% for i in milk %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+<div id="fresh_juise"></div>
+<div class="matreshka"><div class="block_title">свежавыжатые соки</div></div>
+<div class="cell_block">
+	{% for i in fresh_juise %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+<div id="limo"></div>
+<div class="matreshka"><div class="block_title">лимонады</div></div>
+<div class="cell_block">
+	{% for i in limo %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="vinbiri_obem">Выберите обьем</div>
+      <div class="weight_window">
+        <div class="rama">
+        <div class="active_weight">{{ i.weight }}г</div>
+            <a href="#{{ i.id|add:'1' }}" class="not_active_weight popup-link">1000г</a>
+        </div>
+        </div>
+
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    {% for i in limo2 %}
+   
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="vinbiri_obem">Выберите обьем</div>
+      <div class="weight_window"> 
+        <div class="rama">
+        <a href="#{{ i.id|add:'-1' }}"  class="not_active_weight popup-link">350г</a>
+            <div class="active_weight">{{ i.weight }}г</div>
+        </div>
+        </div>
+
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+<div id="cold_drink"></div>
+<div class="matreshka"><div class="block_title">прохладительные напитки</div></div>
+<div class="cell_block">
+	{% for i in cold_drink %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+<div id="hot_drink"></div>
+<div class="matreshka"><div class="block_title">горячие напитки</div></div>
+<div class="cell_block">
+	{% for i in hot_drink %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+
+
+<div id="coffee"></div>
+<div class="matreshka"><div class="block_title">кофейная карта</div></div>
+<div class="cell_block">
+	{% for i in coffee %}
+    <div class="cell"> <a  href="#{{ i.id }}" class="cell_image popup-link"><img src="{{ i.image.url }}"></a>
+    <div class="cell_name">{{ i.name }}</div>
+    <div class="cell_info">
+    <div class="cell_cost">{{ i.price }}р</div>
+    <a href="#{{ i.id }}" class="cell_choose popup-link">выбрать</a>
+  </div>
+  </div>
+
+
+    <div id="{{ i.id }}" class="mfp-hide"> 
+    <div class="modal_content">
+      <div class="name_window" align="right">{{ i.name }}</div>
+      <img src="{{ i.image.url }}">
+      <div class="wimdow_content">{{ i.description }}</div>
+      <div class="cost_window">{{ i.price }}р</div>
+      <div class="weight_window">{{ i.weight }}г</div>
+      <form action="{% url "mainapp:cart_add" i.id %}"   method="post">
+      <div class="number">
+          <input type="text" name="num" value="1"/>
+          <span class="minus">-</span>
+          <span class="plus">+</span>
+      </div>
+      {{ cart_product_form.update }}
+      {% csrf_token %}
+     <div class="model-button fs"><input type="submit" class="orange_button"    value="в корзину"></div></form>
+       </div></div>
+       
+    {% endfor %}
+    </div>
+
+<div id="cold_coffee"></div>
+
+
+      
+
+
+
+  {% endblock %}

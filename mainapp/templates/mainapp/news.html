@@ -1,0 +1,15 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+{% load static %}
+<div class="footer_page_title">АКЦИИ</div>
+<div class="cell_block">
+	{% for news in news%}
+		<div class="new"><img src="{{ news.image.url}}">
+    <div class="new_name">{{ news.name }}</div>
+    <div class="new_text">{{ news.description }}</div>
+	</div>
+{% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "orders/checkout.html" %}
+
+{% block content %}
+{% load static %}
+<form action = '/checkout/step2/step3/step4/step5' class="rf" method="post">
+<div class="page_title">Оплата</div>
+
+	{% csrf_token %}
+		<div class="step1_img"><img src="{% static "mainapp/images/step4.png" %}"></div>
+		<div class="otstup_pay"></div>
+		<div class="element-wrapper">
+  		<input type="radio" class="radio" name="radio" value = "Наличными" id="radio1" />
+  		<label class="place" for="radio1">Наличными</label>
+		</div>
+		<div class="element-wrapper">
+  		<input type="radio" class="radio" name="radio" value = "Картой курьеру" id="radio2" />
+  		<label class="place" for="radio2">Картой курьеру</label>
+		</div>
+		<div class="element-wrapper">
+  		<input type="radio" class="radio" name="radio" value = "Карой на сайте"  id="radio3" />
+  		<label class="place" for="radio3">Картой на сайте</label>
+		</div>
+		<!-- <button type="submit" class="step5_button step3_button">Оформить заказ</button> -->
+		<a class="step5_button orange_button"><button type="submit" class="orange_button">Оформить заказ</button></a>
+		<div class="otstup_pay_2"></div>
+
+</form>
+{% endblock %}

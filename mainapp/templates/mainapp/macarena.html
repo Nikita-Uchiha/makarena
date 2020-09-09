@@ -1,0 +1,48 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+{% load static %}
+
+<div class="footer_page_title">MACARENA</div>
+
+
+    <div class="macarena_slider">
+    
+        {% for slider in slider %}
+        <div class="mySlides fade">
+        <img src="{{ slider.image.url }}" width="100%" >
+        </div>
+        {% endfor %}
+        
+
+        <div class="slideflip_left2">
+        	<a class="prev" onclick="plusSlides(-1)"><div class="macarena_left_arrov"><img src="{% static 'mainapp/images/left-arrov.png'%}" width="15%">
+        </div></a></div>
+        <div class="slideflip_right2">
+          <a class="next" onclick="plusSlides(1)"><div class="macarena_right_arrov"><img src="{% static 'mainapp/images/right_arrov.png'%}" width="90%">
+          </div></a></div>
+        
+        
+    </div>
+
+    <div class="footer_page_text" align="center">Гастро-бар Macarena - это про вкусную еду и напитки, высокое качество сервиса и невероятную атмосферу, которая западает в самое сердце!
+⠀
+Наша команда каждый день трудится  над тем, чтобы совершенствовать нашу работу и чтобы каждый гость оставался доволен и хотел вернуться к нам снова!
+⠀
+В нашем меню вы можете найти блюда разной кухни.
+Горячие блюда, салаты, десерты, роллы, пицца и многое другое.
+⠀
+Теперь, вы можете заказать ваши любимые блюда и напитки в любую точку городу и пригорода.
+⠀
+С любовью от семьи Macarena
+<p>
+Режим работы гастро-бара:
+С понедельника по четверг и воскресенье
+с 10:00 до 00:00
+С пятницы по субботу
+с 10:00 до 02:00
+</p></div>
+
+<a href="{{ menu.menu.url }}" class="footer_page_text_a" download>Скачать меню</a>
+
+{% endblock %}

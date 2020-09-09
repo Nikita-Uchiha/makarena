@@ -1,0 +1,135 @@
+
+{% extends "orders/checkout.html" %}
+
+{% block content %}
+{% load static %}
+<div class="page_title">Корзина</div>
+
+<div class="number_step"><img src=""></div>
+
+{% if new_cart|length == 0 %}
+
+
+<div class="page_subtitle"><div class="not_dobavili" >Вы пока ничего не добавили</div></div>
+
+{% else %}
+<div class="step1_img"><img src="{% static "mainapp/images/step1.png" %}"></div>
+<form action="/checkout/step2" class="rf" method="post">
+	{% csrf_token %}
+{% for item in new_cart %}
+    
+		<div class="basket_block_deep">
+			<img src="{{ item.product.image.url }}" width="25%">
+			<div class="basket_block_name_deep">{{ item.product.name }}</div>
+			
+			<div class="number_deep">
+            			<input type="text" id = "num" value="{{ item.quantity }}" data-cost = "{{ item.price }}" 
+            			name = "product_{{ item.id }}"/>
+               			 <span class="minus_deep">-</span>
+               			 <span class="plus_deep">+</span>
+               			 
+               			 </div>
+
+               			 <div class="basket_cost_deep">{{ item.get_cost }}</div>
+						 <div class="basket_weight_deep">180г</div>
+               			 
+					
+						<a href= "{% url "orders:cart_remove" item.id%}" class="basket_image_deep"><img src="{% static "mainapp/images/musor2.png" %}" >
+						</a>
+
+		</div>
+	
+{% endfor %}
+		
+{% if day in days and hour >= 12  and hour < 16 %}
+		<div class="page_subtitle">Доставка</div>
+
+		<div class="page_banner">Заказ доставояется курьером до двери вашего дома.</div> 
+		<div class="page_banner">Стоймость 150руб.</div>
+		<div class="page_banner_2">Бесплатно от суммы заказа 700руб.</div>
+		
+		<div class="element-wrapper" >
+  		<input type="radio" class="radio" name="radio" id="radio1" value = 'По городу' data-cost = "150"/>
+  		<label class="place" for="radio1">По городу</label>
+  		<div class="deliv_cost" id ="del_cost1">150р</div>
+		</div>
+
+		<div class="element-wrapper" >
+  		<input type="radio" class="radio" name="radio" id="radio2" value = 'По пригороду' data-cost = "250"/>
+  		<label class="place" for="radio2">По пригороду</label>
+  		<div class="deliv_cost" id ="del_cost2">250р</div>
+  		<div class="plases">
+  			п. Дубки, озеро Микутка, п. Космос, п. Ростоши 1,2,3, п. Куйбышева, п. Пригородный, п. Крона, п. Солнечный, улица Тихая (Загородное шоссе), п. Стройгородок, ул. Донгузская после поселка Стройгородок, п. Авиагородок, п. Заречье, п. Колхоз им. Ленина, п.9 января, п. Газодобытчиков, п. Южный Урал, ул. Беляевская после дома № 39, п.Весенний 1,2, п. Ивановка, п. Подгородняя Покровка, п. Соловьевка, п. Павловка.
+  		</div>
+		</div>
+
+		<div class="element-wrapper" >
+  		<input type="radio" class="radio" name="radio" id="radio3" value = 'Отдаленные районы'  data-cost = "350" />
+  		<label class="place" for="radio3">Отдаленные районы</label>
+  		<div class="deliv_cost" id ="del_cost3">350р</div>
+  		<div class="plases">п. Экодолье, п. Приуралье, п. Нижнесакмарский, снт. "Дубовая роща", п. Нижняя Павловка, п. Нежинка, Аэропорт, "Гора Сулак".</div>
+		</div>
+
+		<div class="element-wrapper" >
+  		<input type="radio" class="radio" name="radio" id="radio4" value = 'Самовывоз'  data-cost = "0" />
+  		<label class="place" for="radio4">Самовывоз</label>
+  		<div class="deliv_cost">0р</div>
+  		<div class="plases">Забрать заказ по адресу: Оренбург, пр-т Парковый, 5, 2-й этаж</div>
+		</div>
+		
+		<div class="page_summ_text">итого</div>
+		<input type="hidden" id = "hidan" value = "" name="content"/>
+		<div class="page_summ">р</div>
+		<!-- <button type="submit" class="step2_button step3_button">продолжить</button> -->
+		<a class="step2_button orange_button"><button type="submit" class="orange_button">продолжить</button></a>
+</form>
+<script src="{% static "mainapp/js/gQuerry-3.5.1.min.js" %}"></script>
+<script src="{% static "mainapp/js/cart.js" %}"></script>
+{% else %}
+<div class="page_subtitle">Доставка</div>
+
+		<div class="page_banner">Заказ доставояется курьером до двери вашего дома.</div> 
+		<div class="page_banner">Стоймость 150руб.</div>
+		<div class="page_banner_2">Бесплатно от суммы заказа 999руб.</div>
+		
+		<div class="element-wrapper" >
+  		<input type="radio" class="radio" name="radio" id="radio1" value = 'По городу' data-cost = "150"/>
+  		<label class="place" for="radio1">По городу</label>
+  		<div class="deliv_cost" id ="del_cost1">150р</div>
+		</div>
+
+		<div class="element-wrapper" >
+  		<input type="radio" class="radio" name="radio" id="radio2" value = 'По пригороду' data-cost = "250"/>
+  		<label class="place" for="radio2">По пригороду</label>
+  		<div class="deliv_cost" id ="del_cost2">250р</div>
+  		<div class="plases">
+  			п. Дубки, озеро Микутка, п. Космос, п. Ростоши 1,2,3, п. Куйбышева, п. Пригородный, п. Крона, п. Солнечный, улица Тихая (Загородное шоссе), п. Стройгородок, ул. Донгузская после поселка Стройгородок, п. Авиагородок, п. Заречье, п. Колхоз им. Ленина, п.9 января, п. Газодобытчиков, п. Южный Урал, ул. Беляевская после дома № 39, п.Весенний 1,2, п. Ивановка, п. Подгородняя Покровка, п. Соловьевка, п. Павловка.
+  		</div>
+		</div>
+
+		<div class="element-wrapper" >
+  		<input type="radio" class="radio" name="radio" id="radio3" value = 'Отдаленные районы'  data-cost = "350" />
+  		<label class="place" for="radio3">Отдаленные районы</label>
+  		<div class="deliv_cost" id ="del_cost3">350р</div>
+  		<div class="plases">п. Экодолье, п. Приуралье, п. Нижнесакмарский, снт. "Дубовая роща", п. Нижняя Павловка, п. Нежинка, Аэропорт, "Гора Сулак".</div>
+		</div>
+
+		<div class="element-wrapper" >
+  		<input type="radio" class="radio" name="radio" id="radio4" value = 'Самовывоз'  data-cost = "0" />
+  		<label class="place" for="radio4">Самовывоз</label>
+  		<div class="deliv_cost">0р</div>
+  		<div class="plases">Забрать заказ по адресу: Оренбург, пр-т Парковый, 5, 2-й этаж</div>
+		</div>
+		<script src="{% static "mainapp/js/gQuerry-3.5.1.min.js" %}"></script>
+<script src="{% static "mainapp/js/dostavka.js" %}"></script>
+		
+		<div class="page_summ_text">итого</div>
+		<input type="hidden" id = "hidan" value = "" name="content"/>
+		<div class="page_summ">р</div>
+		<!-- <button type="submit" class="step2_button step3_button">продолжить</button> -->
+		<a class="step2_button orange_button"><button type="submit" class="orange_button">продолжить</button></a>
+</form>
+{% endif %}
+{% endif %}
+{% endblock %}
+

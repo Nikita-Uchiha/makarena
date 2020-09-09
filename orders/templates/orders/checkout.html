@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    
+	
+    <link rel="stylesheet" href="{% static "mainapp/css/macarena1.css" %}">
+    <link rel="stylesheet" href="{%static "mainapp/css/magnific-popup.css" %}">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Noto+Serif&display=swap" rel="stylesheet">
+    <title>Macarena</title>
+</head>
+<body>
+
+<div class="header">
+	<div class="big_time">
+	<div class="timable">Пн-чт,вс: с 10:00 до 00:00</div>
+	<div class="timable"> Пт-сб: с 10:00 до 02:00</div>
+	</div>
+	{% if request.user.is_authenticated and user.first_name != "" %}
+	<a href="{% url 'per:account' %}" class="entrance ">{{ user.first_name }}</a>
+	{% else %}
+	<a href="#entrance" class="entrance popup-link">войти</a>
+	{% endif %}
+<a href="/" class="logo logo_desktop"><img src="{% static "mainapp/images/logo4.jpeg" %}" width="4.5%"></a>
+<a href="/" class="logo logo_mob"><img src="{% static "mainapp/images/М2.png" %}" width="4.5%"></a>
+<a href="/promotions" class="akatsuki">АКЦИИ</a>
+<a href="/news" class="Hidan">НОВОСТИ</a>
+	
+
+</div>
+
+<div id="entrance" class="mfp-hide">
+    <div class="entrance_window">
+        <div class="entrance_title">Вход</div>
+         <form action = '/code/' class="rf" method="post">
+   	{% csrf_token %}
+        <div class="phone_entrance">
+            <b>Телефон:</b>
+            {{ form.phone }}
+            </div>
+        <button type="submit" href="#entrance_code" class="code_button  popup-link">отправить код</button>
+       </form>
+    </div>
+</div>
+
+
+<div id="entrance_code" class="mfp-hide">
+    <div class="entrance_window">
+        <div class="entrance_title">Вход</div>
+        <div class="phone_entrance">
+        	<form action = '/code/check/' method="post">
+            <b>Телефон:</b>
+            {% csrf_token %}
+            {{ LoginForm.phone }}
+            </div>
+            <b>Код:</b>
+            {{ LoginForm.password }}
+       
+       <button type="submit" class="entrance_button step3_button">вход</button>
+       </form>
+    </div>
+</div>
+
+{% block content %}
+
+
+
+{% endblock %}
+<div class="footer">
+	<div class="hight_footer_right_a">460000, г. Оренбург, пр. Победы 1А</div>
+	<div class="hight_footer_right_block1"><div class="hight_footer_right_block2">
+	<div class="hight_footer_right">Отдел контроля качества: <u>+7 (9058) 12-77-60</u></div>
+	</div></div>
+	<div class="hight_footer_right_block1"><div class="hight_footer_right_block3">
+	<div class="hight_footer_right">Доставка:т. <u>+7 (3532) 49-37-37</u></div>
+	</div></div>
+	<div class="hight_footer_right_block1"><div class="hight_footer_right_block4">
+	<div class="hight_footer_right">Гастро-бар: т. <u>+7 (3532) 61-85-85</u></div>
+	</div></div>
+
+	<a href="/about_us" class="hight_footer_mid">Macarena</a>
+	<a href="/news" class="hight_footer_mid_a">новости</a>
+	<a href="/vacancies" class="hight_footer_mid_a">вакансии</a>
+	<a href="/delivery" class="hight_footer_mid_a">доствака</a>
+	<a href="/payment" class="hight_footer_mid_a">оплата</a>
+	
+	<div class="hight_footer_left_block">
+	<div class="hight_footer_left">ООО «М2 ЧИЛУМ ГРУПП»</div>
+	<div class="hight_footer_left">ИНН 5611075834/ОГРН 1155658028008</div>
+	<div class="hight_footer_left">Россия, 460000, Оренбургская область</div>
+	<div class="hight_footer_left">г. Оренбург,  ул. Ижевская, 14, кв 2</div>
+	<a href="#" class="hight_footer_left_a">m2acarena@yandex.ru</a>
+	</div>
+
+	<div class="mid_footer_line"> </div>
+	<div class="mid_footer">
+		<a href="https://instagram.com/m2acarena?igshid=y3oerbhska5i" class="mid_footer_image" target="_blank"><img src="{% static 'mainapp/images/instagram.png'%}"></a>
+		<a href="https://vk.com/m2acarena" class="mid_footer_image" target="_blank"><img src="{% static 'mainapp/images/vk.png'%}"></a>
+		<a href="https://api.whatsapp.com/send?phone=79619418585&text=" class="mid_footer_image" target="_blank"><img src="{% static 'mainapp/images/whatsapp.png'%}"></a>
+		<a href="mailto:m2acarena@yandex.ru" class="mid_footer_image" target="_blank"><img src="{% static 'mainapp/images/mail.png'%}"></a>
+	</div>
+	<div class="down_footer_left">© 2016  М2 ЧИЛУМ ГРУПП</div>
+	<div class="down_footer_right">Авторы: <a href="https://www.instagram.com/2studio3/" target="_blank">Studio23</a></div>
+</div>
+	<script src="{% static "mainapp/js/gQuerry-3.5.1.min.js" %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+    <script>
+    $(".phone").mask("+7(999)999-9999");
+    </script>
+    <script>
+   $("#id_phone").keyup(function () {
+     var value = $(this).val();
+     $("#second_phone").val(value);
+   });
+	</script>
+	
+	<script src="{% static "mainapp/js/field_valid.js" %}"></script>
+	
+    <script src="{% static "mainapp/js/slick-slider1.js" %}"></script>
+    <script src="{% static "mainapp/js/mainapp.js" %}"></script>	
+    <script src="{% static "mainapp/js/magnific-popup.js" %}"></script>
+    <script src="{% static "mainapp/js/window.js" %}"></script>
+    <script src="{% static "mainapp/js/slider.js" %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "orders/checkout.html" %}
+
+{% block content %}
+{% load static %}
+<form action = '/checkout/step2/step3/step4' class= 'rf' method="post">
+{% csrf_token %}
+<div class="page_title">Заказ</div>
+<div class="step1_img"><img src="{% static "mainapp/images/step3.png" %}"></div>
+<div class="order_pillar_2_name"><input type="text" name="name1" value="{{ user.first_name }}" class="input_PA rfield"></div>
+<div class="order_pillar_1">Имя:</div>
+<div class="order_pillar_2"><input type="text" name="phone" value="{{ user.phone }}" class="phone input_PA rfield"></div>
+<div class="order_pillar_1">Телефон:</div>
+<div class="order_pillar_2_com"><input type="email" name="mail" value="{{ user.email }}" class="input_PA "></div>
+<div class="order_pillar_1_com">Почта:</div>
+
+<!-- <button type="submit" class="step4_button step3_button">продолжить</button> -->
+<a class="step4_button"><button type="submit" class="orange_button">продолжить</button></a>
+</form>
+
+
+{% endblock %}

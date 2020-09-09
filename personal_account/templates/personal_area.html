@@ -1,0 +1,54 @@
+
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+{% load static %}
+<form action="/code/update/" class = 'rf' method="post">
+	{% csrf_token %}
+<div class="page_title">Личный кабинет</div>
+<div class="order_pillar_2_name">{{ form.first_name }}</div>
+<div class="order_pillar_1">Имя:</div>
+<div class="order_pillar_2">{{ form.Birth_Date }}</div>
+<div class="order_pillar_1">Дата рождения:</div>
+<div class="order_pillar_2">{{ form.email }}</div>
+<div class="order_pillar_1">Почта:</div>
+<div class="order_pillar_2">{{ form.address_street }}</div>
+<div class="order_pillar_1">Улица:</div>
+<div class="order_pillar_2">{{ form.address_house }}</div>
+<div class="order_pillar_1">Дом:</div>
+<div class="order_pillar_2">{{ form.address_entrance }}</div>
+<div class="order_pillar_1">Подъезд:</div>
+<div class="order_pillar_2">{{ form.address_apartment }}</div>
+<div class="order_pillar_1">Квартира:</div>
+<div class="order_pillar_2">{{ form.address_floor }}</div>
+<div class="order_pillar_1">Этаж:</div>
+
+<!-- <button type="submit" class="personal_button orange_button ">сохранить</button> -->
+<a class="personal_button"><button type="submit" class="orange_button">Сохранить</button></a>
+
+</form>
+<div class="page_subtitle_PA">История заказов</div>
+<div class="history_window">
+	{% for i in list %}
+	<div class="history_block">
+	<div class="history_date">{{ i.created }}</div>
+	{% for n in plist %}
+	{% if n.order.id == i.id%}
+	<div class="history_name">{{ n.product.name }}</div>
+	<div class="history_cost">{{ n.get_cost }}р</div>
+	{% endif %}
+	{% endfor %}
+
+	<div class="history_name_sum">СУММА</div>
+	<div class="history_cost">{{ i.total_price }}р</div>
+	</div>
+	{% endfor %}
+	
+</div>
+
+<!-- <a href="{% url "per:logout" %}" class="history_button">Выйти</a> -->
+<a href="{% url "per:logout" %}" class="history_button"><button type="submit" class="orange_button">Выйти</button></a>
+
+{% endblock %}
+
+

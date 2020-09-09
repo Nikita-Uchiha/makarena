@@ -1,0 +1,29 @@
+{% extends "orders/checkout.html" %}
+
+{% block content %}
+{% load static %}
+
+<div class="page_title_2step">Адрес доставки</div>
+<div class="step1_img"><img src="{% static "mainapp/images/step2.png" %}"></div>
+<form action="/checkout/step2/step3" class = "rf" method="post">
+<div class="entry_name">Улица:</div>
+{{ form2.address_street }}
+<div class="entry_name">Дом:</div>
+{{ form2.address_house }}
+<div class="entry_name">Подъезд:</div>
+{{ form2.address_entrance }}
+<div class="entry_name">Квартира:</div>
+{{ form2.address_apartment }}
+<div class="entry_name">Этаж:</div>
+{{ form2.address_floor }}
+<div class="checkbox_adres">
+{{ form2.bonus_card }} <label for="id_bonus_card" class="checkbox_text">заказать бонусную карту</label>
+</div>
+<div class="entry_name_com">Коментарий:</div>
+{{ form2.comment }}
+<!-- <button type="submit" class="step3_button">сохранить</button> -->
+<a href="" class="step3_button orange_button"><button type="submit" class="orange_button">сохранить</button></a>
+{% csrf_token %}
+</form>
+
+{% endblock %}
