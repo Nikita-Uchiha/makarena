@@ -2755,6 +2755,7 @@ width: 100%;
     top: 25%;
     left: 3%;
     width: 15%;
+    z-idex:1002;
 }
 
 .logo_desktop{
@@ -3000,7 +3001,7 @@ width: 100%;
 .poloska_id{
     top: 7%;
     left: 0%;
-    padding-top: 1%;
+    padding-top: 1px;
     z-index: 1001;
     font-size: 100%;
 }

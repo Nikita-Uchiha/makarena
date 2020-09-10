@@ -35,7 +35,7 @@ SECRET_KEY = 'z5bpqtdwge7+yri6bp7bf_p41@iyozj9)dg5ce&3#2nhua(9&a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['194.58.102.107']
 
 CART_SESSION_ID = 'cart'
 # Application definition
@@ -97,9 +97,9 @@ DATABASES = {
 
         'NAME': 'makarena',
 
-        'USER': 'Nikita',
+        'USER': 'nikita',
 
-        'PASSWORD': 'skripskrip',
+        'PASSWORD': 'makarena7182',
 
         'HOST': 'localhost',
 
