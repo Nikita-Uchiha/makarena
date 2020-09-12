@@ -31,9 +31,9 @@ EMAIL_HOST_PASSWORD = '261708Nn'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'z5bpqtdwge7+yri6bp7bf_p41@iyozj9)dg5ce&3#2nhua(9&a'
-
+SESSION_COOKIE_AGE = 120 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False 
 
 ALLOWED_HOSTS = ['194.58.102.107']
 
@@ -149,7 +149,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATIC_ROOT = '/home/nikita/makarena/static/'
+
+#STATICFILES_DIRS = [
+ #   os.path.join(BASE_DIR, "static"),
+#]
 

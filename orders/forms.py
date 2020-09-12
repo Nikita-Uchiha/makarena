@@ -15,7 +15,7 @@ class OrderCreateForm(forms.ModelForm):
     	self.fields['address_entrance'].widget.attrs.update({'class': 'padick_entry rfield'})
     	self.fields['address_apartment'].widget.attrs.update({'class': 'flet_entry rfield'})
     	self.fields['address_floor'].widget.attrs.update({'class': 'floor_entry rfield'})
-    	# self.fields['bonus_card'].widget.attrs.update({'class': 'checkbox_text '})
+    	self.fields['bonus_card'].widget.attrs.update({'class': 'checkbox'})
     	self.fields['comment'].widget.attrs.update({'class': 'comment_entry '})
         
 

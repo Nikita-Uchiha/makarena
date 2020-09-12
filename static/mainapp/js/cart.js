@@ -1,6 +1,7 @@
 
 
 $(document).ready(function(){
+calculating();
 var total_order_amount = 0;
 var total_order = 0;
     function calculatingBasketAmount(){

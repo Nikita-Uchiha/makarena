@@ -10,7 +10,6 @@ from personal_account.forms import UserRegistrationForm, UserLoginForm
 
 def checkout(request):
 	session_key = request.session.session_key
-	print(session_key)
 	form = UserRegistrationForm()
 	LoginForm = UserLoginForm()
 	order = Order.objects.create(session_key = session_key)
